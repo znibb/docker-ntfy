@@ -21,7 +21,7 @@ services:
       - com.centurylabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.ntfy.entrypoints=https
-      - traefik.http.routers.ntfy.rule=Host(`ntfy.${DOMAIN_NAME}`)
+      - traefik.http.routers.ntfy.rule=Host(`ntfy.${DOMAIN_NAME:?error}`)
       - traefik.http.routers.ntfy.service=ntfy
       - traefik.http.routers.ntfy.tls=true
       - traefik.http.routers.ntfy.tls.certresolver=cloudflare
