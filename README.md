@@ -7,7 +7,17 @@ Notification server using ntfy.sh
 1. Make sure that Docker network `traefik` exists, `docker network ls`
 1. Run `docker compose up` and check logs
 
-## Client installation
+## Server config
+### Manage users/access
+Users and access needs to be managed from within the docker container  
+
+* Get shell inside the container: `docker compose exec ntfy /bin/sh`
+* Show users: `ntfy user list`
+* Add user: `ntfy user add <user>`
+* Add access to user: `ntfy access <user> <rw|ro|wo|deny>`
+* Help: `ntfy <user|access> -h`
+
+## Client setup
 ### Debian/Ubuntu repository:
 ```
 sudo mkdir -p /etc/apt/keyrings  
