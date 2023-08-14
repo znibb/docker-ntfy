@@ -1,12 +1,16 @@
 # Reference: https://github.com/binwiederhier/ntfy/blob/main/server/server.yml
 listen-http: ":80"
+
 cache-file: "/var/cache/ntfy/cache.db"
 cache-duration: "744h" # 31d
+
 behind-proxy: true
+
 attachment-cache-dir: "/var/cache/ntfy/attachments"
 attachment-total-size-limit: "5G"
 attachment-file-size-limit: "15M"
 attachment-expiry-duration: "3h"
+
 visitor-attachment-total-size-limit: "100M"
 visitor-attachment-daily-bandwidth-limit: "500M"
 
@@ -15,3 +19,5 @@ auth-default-access: deny-all
 enable-login: true
 
 keepalive-interval: "45s"
+
+web-root: disable
