@@ -1,8 +1,11 @@
 # docker-ntfy
 Notification server using ntfy.sh
 
+## To do
+* Find out how to solve auth for web UI and enable it
+
 ## Server setup
-1. Run init.sh: `./init.sh` (only required at first setup, initializes some files that are to be mounted into the container)
+1. Initialize config by running init.sh: `./init.sh`
 1. Input your domain name into `.env`
 1. Make sure that Docker network `traefik` exists, `docker network ls`
 1. Run `docker compose up` and check logs
