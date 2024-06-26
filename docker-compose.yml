@@ -11,8 +11,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    env_file:
-      - .env
     environment:
       NTFY_BASE_URL: https://ntfy.${TRAEFIK_DOMAIN:?}
     labels:
@@ -23,7 +21,7 @@ services:
       - traefik.http.routers.ntfy.tls=true
       - traefik.http.routers.ntfy.tls.certresolver=cloudflare
       - traefik.http.services.ntfy.loadbalancer.server.port=80
-      - traefik.http.routers.ntfy.middlewares=default@file
+      - traefik.http.routers.ntfy.middlewares=authentik@file
     networks:
       - traefik
     volumes:

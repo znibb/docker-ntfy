@@ -20,5 +20,6 @@ enable-login: true
 
 keepalive-interval: "45s"
 
-# To enable web UI set to '/'
-web-root: disable
+# To enable web UI set to '"/"', to disable set to 'disable'
+# web-root: disable
+web-root: "/"
