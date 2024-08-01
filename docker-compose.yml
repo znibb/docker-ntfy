@@ -27,7 +27,7 @@ services:
     volumes:
       - ./cache/:/var/cache/ntfy/
       - ./files/server.yml:/etc/ntfy/server.yml
-      - ./files/user.db:/var/lib/ntfy/user.db
+      - ./data/user.db:/var/lib/ntfy/user.db
       - /etc/localtime:/etc/localtime:ro
 
 networks:

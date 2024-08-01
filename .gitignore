@@ -1,4 +1,5 @@
 .env
 cache/*
 !cache/.gitkeep
-files/user.db
+data/*
+!data/.gitkeep
