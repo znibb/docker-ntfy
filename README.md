@@ -8,6 +8,7 @@ Notification server using ntfy.sh
 1. Run `docker compose up` and check logs
 
 ## Server config
+Basic server configuration handled in `files/server.yml`
 ### Manage users/access
 Users and access needs to be managed from within the docker container  
 
