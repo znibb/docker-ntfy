@@ -1,5 +1,4 @@
 .env
-cache/*
-!cache/.gitkeep
 data/*
 !data/.gitkeep
+!data/cache/.gitkeep

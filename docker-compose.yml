@@ -25,7 +25,7 @@ services:
     networks:
       - traefik
     volumes:
-      - ./cache/:/var/cache/ntfy/
+      - ./data/cache/:/var/cache/ntfy/
       - ./files/server.yml:/etc/ntfy/server.yml
       - ./data/user.db:/var/lib/ntfy/user.db
       - /etc/localtime:/etc/localtime:ro
