@@ -1,9 +1,6 @@
 # docker-ntfy
 Notification server using ntfy.sh
 
-## To do
-* Find out how to solve auth for web UI and enable it
-
 ## Server setup
 1. Initialize config by running init.sh: `./init.sh`
 1. Input your domain name into `.env`

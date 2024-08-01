@@ -21,7 +21,7 @@ services:
       - traefik.http.routers.ntfy.tls=true
       - traefik.http.routers.ntfy.tls.certresolver=cloudflare
       - traefik.http.services.ntfy.loadbalancer.server.port=80
-      - traefik.http.routers.ntfy.middlewares=authentik@file
+      - traefik.http.routers.ntfy.middlewares=default@file
     networks:
       - traefik
     volumes:
