@@ -6,7 +6,7 @@ if [ ! -f .env ]; then
 fi
 
 # 1. Check DATA_DIR is defined
-source .env
+DATA_DIR=$(grep -E '^DATA_DIR=' .env | cut -d'=' -f2-)
 if [ -z "${DATA_DIR:-}" ]; then
   echo "ERROR: DATA_DIR is not defined in .env"
   exit 1
