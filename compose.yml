@@ -49,7 +49,7 @@ services:
       # auth file
       - ${DATA_DIR:?}/auth.db:/var/lib/ntfy/auth.db
       # cache file
-      - ${DATA_DIR:?}/cache.db/:/var/cache/ntfy/cache.db
+      - ${DATA_DIR:?}/cache.db:/var/cache/ntfy/cache.db
       # attachments dir
       - ${DATA_DIR:?}/attachments/:/var/cache/ntfy/attachments/
 
