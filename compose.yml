@@ -46,12 +46,8 @@ services:
       - 8082:80
     user: ${UID:-1000}:${GID:-1000}
     volumes:
-      # auth file
-      - ${DATA_DIR:?}/auth.db:/var/lib/ntfy/auth.db
-      # cache file
-      - ${DATA_DIR:?}/cache.db:/var/cache/ntfy/cache.db
-      # attachments dir
-      - ${DATA_DIR:?}/attachments/:/var/cache/ntfy/attachments/
+      - ${DATA_DIR:?}/lib/:/var/lib/ntfy/
+      - ${DATA_DIR:?}/cache/:/var/cache/ntfy/
 
 networks:
   traefik:
