@@ -1,10 +1,12 @@
 services:
   ntfy:
-    image: binwiederhier/ntfy:latest
+    # https://hub.docker.com/r/binwiederhier/ntfy/tags
+    image: binwiederhier/ntfy:v2.22
     container_name: ntfy
+    restart: unless-stopped
     command:
       - serve
-    restart: unless-stopped
+    init: true # needed for healthchecks, prevents zombie processes
     healthcheck:
       test: ["CMD-SHELL", "wget -q --tries=1 http://localhost:80/v1/health -O - | grep -Eo '\"healthy\"\\s*:\\s*true' || exit 1"]
       interval: 60s
@@ -12,23 +14,44 @@ services:
       retries: 3
       start_period: 40s
     environment:
+      # Timezone
+      TZ: ${TIMEZONE:-Etc/UTC}
+      # Base config
       NTFY_BASE_URL: https://ntfy.${TRAEFIK_DOMAIN:?}
+      NTFY_BEHIND_PROXY: true
+      NTFY_ENABLE_LOGIN: true
+      NTFY_REQUIRE_LOGIN: true
+      # Auth
+      NTFY_AUTH_FILE: /var/lib/ntfy/auth.db
+      NTFY_AUTH_DEFAULT_ACCESS: deny-all
+      # Cache
+      NTFY_CACHE_FILE: /var/cache/ntfy/cache.db
+      NTFY_CACHE_DURATION: "24h"
+      # Attachments
+      NTFY_ATTACHMENT_CACHE_DIR: /var/cache/ntfy/attachments
+      NTFY_ATTACHMENT_FILE_SIZE_LIMIT: "30"
+      NTFY_ATTACHMENT_TOTAL_SIZE_LIMIT: "10G"
+      NTFY_ATTACHMENT_EXPIRY_DURATION: "6h"
+      # User setup - https://docs.ntfy.sh/config/
+      NTFY_AUTH_USERS: "admin:$$2b$$10$$VfG9Q3MqCCOPA9uq30zKd.iKzKp89RPoI5CPyvrVBJ9VZfbIIqGQ.:admin"
     labels:
-      - com.centurylabs.watchtower.enable=true
       - traefik.enable=true
-      - traefik.http.routers.ntfy.entrypoints=https
-      - traefik.http.routers.ntfy.rule=Host(`ntfy.${TRAEFIK_DOMAIN:?}`)
-      - traefik.http.routers.ntfy.tls=true
-      - traefik.http.routers.ntfy.tls.certresolver=cloudflare
       - traefik.http.services.ntfy.loadbalancer.server.port=80
+      - traefik.http.routers.ntfy.rule=Host(`ntfy.${TRAEFIK_DOMAIN:?}`)
+      - traefik.http.routers.ntfy.entrypoints=websecure
       - traefik.http.routers.ntfy.middlewares=default@file
     networks:
       - traefik
+    ports:
+      - 8082:80
+    user: ${UID:-1000}:${GID:-1000}
     volumes:
-      - ./data/cache/:/var/cache/ntfy/
-      - ./files/server.yml:/etc/ntfy/server.yml
-      - ./data/user.db:/var/lib/ntfy/user.db
-      - /etc/localtime:/etc/localtime:ro
+      # auth file
+      - ${DATA_DIR:?}/auth.db:/var/lib/ntfy/auth.db
+      # cache file
+      - ${DATA_DIR:?}/cache.db/:/var/cache/ntfy/cache.db
+      # attachments dir
+      - ${DATA_DIR:?}/attachments/:/var/cache/ntfy/attachments/
 
 networks:
   traefik:
