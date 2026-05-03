@@ -2,13 +2,13 @@
 Notification server using ntfy.sh
 
 ## Server setup
-1. Initialize config by running init.sh: `./init.sh`
-1. Input your domain name into `.env`
-1. Make sure that Docker network `traefik` exists, `docker network ls`
-1. Run `docker compose up` and check logs
+1. Initialize config by running init.sh: `./init.sh` (it'll probably error the first time but will create `.env` if it was missing)
+2. Insert personal info into `.env`
+3. Run `./init.sh` again to setup the rest of the directory structure
+4. Make sure that Docker network `traefik` exists, `docker network ls`
+5. Run `docker compose up` and check logs
 
 ## Server config
-Basic server configuration handled in `files/server.yml`
 ### Manage users/access
 Users and access needs to be managed from within the docker container  
 
